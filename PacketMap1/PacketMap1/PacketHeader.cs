@@ -22,9 +22,16 @@ namespace PacketMap1
             else
             {
                 hexHeader = ByteToHex(header, true);
-                if(header[14] == 69)
+                if(header[14] == 69 || header[14] == 70)        //IPv4 handeled packets
                 {
                     protocol = DetermineProtocol(header[23]);
+                    if (protocol == "Unknown")
+                    {
+                        Console.WriteLine(header[23]);
+                        Console.WriteLine("^^ THAT");
+                    }
+
+
                     sourceAddr[0] = header[26];
                     sourceAddr[1] = header[27];
                     sourceAddr[2] = header[28];
@@ -36,13 +43,23 @@ namespace PacketMap1
                     destAddr[3] = header[33];
                     destAddrstr = destAddr[0].ToString() + "." + destAddr[1].ToString() + "." + destAddr[2].ToString() + "." + destAddr[3].ToString();
                 }
+                else if (header[14] == 96)      //IPv6 Packets
+                {
+                    //Console.WriteLine("IPv6 Packet (not yet implemented)");
+                    Console.Write("");
+                }
+                else if (header[14] == 0)       //ARP Packets
+                {
+                    //Console.WriteLine("ARP Packet");
+                    Console.Write("");
+                }
                 else
                 {
-                    if (header[14] == 96)
-                        Console.WriteLine("IPv6 Packet (not yet implemented)");
-                    else
-                        Console.WriteLine(hexHeader);
+                    Console.WriteLine(hexHeader);
+                    Console.WriteLine("Unknown Packet header: ^^");
+                    //Ethernet packets?
                 }
+
             }                
         }
 
@@ -68,6 +85,12 @@ namespace PacketMap1
 
             switch (i)
             {
+                case 1:
+                    s = "ICMP";
+                    break;
+                case 2:
+                    s = "IGMP";
+                    break;
                 case 6:
                     s = "TCP";
                     break;

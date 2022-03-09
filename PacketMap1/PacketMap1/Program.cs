@@ -1,5 +1,6 @@
 ﻿using System;
 using SharpPcap;
+using GsonReader;
 
 namespace PacketMap1
 {
@@ -11,8 +12,11 @@ namespace PacketMap1
             string ver = Pcap.Version;
             Console.WriteLine("SharpPcap {0}, Example4.BasicCapNoCallback.cs", ver);
 
-            ILiveDevice dev = IfaceSelector();
-            StartCapture(dev);
+            //ILiveDevice dev = IfaceSelector();
+            //StartCapture(dev);
+
+            IPInfoExtractor iPInfoExtractor = new IPInfoExtractor("88.99.175.24");
+            Console.ReadLine();
         }
 
         public static ILiveDevice IfaceSelector()
@@ -73,7 +77,8 @@ namespace PacketMap1
                 // Prints the time and length of each received packet
                 DateTime time = packet.Timeval.Date;
 
-                //Console.WriteLine($"{time.Hour}:{time.Minute}:{time.Second},{time.Millisecond}   Source: {packetHeader.sourceAddrstr}  Destination: {packetHeader.destAddrstr}  Protocol: {packetHeader.protocol}");
+                //Console.WriteLine($"{time.Hour}:{time.Minute}:{time.Second},{time.Millisecond}   Source: {packetHeader.sourceAddrstr} 
+                //Destination: {packetHeader.destAddrstr}  Protocol: {packetHeader.protocol}");
             }
 
             // Print out the device statistics
