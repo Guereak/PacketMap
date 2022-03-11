@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacketMap1", "PacketMap1\PacketMap1.csproj", "{0BA4EA49-F66D-459C-B6CC-0213C9FF1BB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacketMapCLI", "PacketMapCLI\PacketMapCLI.csproj", "{530DBD99-AF83-45A8-9797-75CAD3926F8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0BA4EA49-F66D-459C-B6CC-0213C9FF1BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BA4EA49-F66D-459C-B6CC-0213C9FF1BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BA4EA49-F66D-459C-B6CC-0213C9FF1BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BA4EA49-F66D-459C-B6CC-0213C9FF1BB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{530DBD99-AF83-45A8-9797-75CAD3926F8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{530DBD99-AF83-45A8-9797-75CAD3926F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{530DBD99-AF83-45A8-9797-75CAD3926F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{530DBD99-AF83-45A8-9797-75CAD3926F8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9BB59F84-B3FD-4B68-9B03-DBD94B4E192B}
+		SolutionGuid = {2B2D54F8-793E-4339-BC61-7C06E7D9F36B}
 	EndGlobalSection
 EndGlobal
