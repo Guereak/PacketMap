@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace PacketMapCLI
 {
@@ -35,13 +32,16 @@ namespace PacketMapCLI
             else
             {
                 hexHeader = ByteToHex(header, true);
-                if (header[14] == 69 || header[14] == 70)        //IPv4 handeled packets
+                if (header[12] == 8 && header[13] == 0)        //IPv4 handeled packets
                 {
                     protocol = DetermineProtocol(header[23]);
                     if (protocol == "Unknown")
                     {
-                        Console.WriteLine(header[23]);
-                        Console.WriteLine("^^ THAT");
+                        using(StreamWriter sw = File.AppendText(@"../../debug.log"))
+                        {
+                            sw.WriteLine("Could not determine the protocol for the following:");
+                            sw.WriteLine(header[23]);
+                        }
                     }
 
                     ipType = IpType.IPv4;
@@ -73,22 +73,16 @@ namespace PacketMapCLI
 
                     Console.WriteLine(direction);
                 }
-                else if (header[14] == 96)      //IPv6 Packets
+                else if (header[12] == 134 && header[13] == 221)      //IPv6 Packets
                 {
-                    //Console.WriteLine("IPv6 Packet (not yet implemented)");
+                    //IPv6 Packet / MAKE
                     ipType = IpType.IPv6;
                 }
-                else if (header[14] == 0)       //ARP Packets
+                else if(header[12] != 8 && header[12] != 136) using (StreamWriter sw = File.AppendText(@"../../debug.log"))
                 {
-                    //Console.WriteLine("ARP Packet");
-                    Console.Write("");
-                }
-                else
-                {
-                    Console.WriteLine(hexHeader);
-                    Console.WriteLine("Unknown Packet header: ^^");
-                    //Ethernet packets?
-                    //Find a way to intercept Ethernet packets I guess
+                    //Are not taken into account ARP and ethernet bullshit
+                    sw.WriteLine("Packet is not an IP packet:");
+                    sw.WriteLine(hexHeader);
                 }
 
             }
@@ -141,31 +135,20 @@ namespace PacketMapCLI
             Scope scope;
             //Check if destination IP address is private or public
             if (addr[0] == 10)
-            {
-                //Class A private IP
-                scope = Scope.Private;
-            }
+                scope = Scope.Private;                //Class A private IP
             else if (addr[0] == 192 && addr[1] == 168)
-            {
-                //Class C private IP
-                scope = Scope.Private;
-            }
+                scope = Scope.Private;                //Class C private IP
             else if (addr[0] == 172 && addr[1] >= 16 && addr[1] <= 31)
-            {
-                //Class B private IP
+                scope = Scope.Private;                //Class B private IP
+            else if (addr[0] >= 224 && addr[0] <= 239)
+                scope = Scope.Private;                //IP Multicast (no idea what that is)
+            else if (addr[0] >= 240)
+                scope = Scope.Private;                //Future use + subnet
+            else if (addr[0] == 169 && addr[1] == 254)
                 scope = Scope.Private;
-            }
-            else if(addr[0] >= 224 && addr[0] <= 239)
-            {
-                //IP Multicast (no idea what that is)
-                scope = Scope.Private;
-            }
-            else
-            {
-                //Source ip is likely public
-                //Does not work for public local adress: fix
-                scope = Scope.Public;
-            }
+            else                                      //Source ip is public
+                scope = Scope.Public;                
+
             return scope;
         }
 

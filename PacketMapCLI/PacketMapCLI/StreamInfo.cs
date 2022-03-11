@@ -21,6 +21,7 @@ namespace PacketMapCLI
         public string city;
         public double latitude;
         public double longitude;
+        public string protocol;
 
 
         public StreamInfo FetchPacketInfo(PacketHeader packetHeader)

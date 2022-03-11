@@ -75,12 +75,6 @@ namespace PacketMapCLI
                     Console.WriteLine(packetHeader.hexHeader);
 
                 ExtractInfo(packetHeader);
-
-                // Prints the time and length of each received packet
-                //DateTime time = packet.Timeval.Date;
-
-                //Console.WriteLine($"{time.Hour}:{time.Minute}:{time.Second},{time.Millisecond}   Source: {packetHeader.sourceAddrstr} 
-                //Destination: {packetHeader.destAddrstr}  Protocol: {packetHeader.protocol}");
             }
 
             // Print out the device statistics
